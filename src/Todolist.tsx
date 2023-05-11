@@ -1,6 +1,5 @@
 import React, {ChangeEvent} from "react";
 import {FilterValuesType} from "./App";
-import {Simulate} from "react-dom/test-utils";
 import {AddItemForm} from "./AddItemForm";
 import {EditableStan} from "./EditableStan";
 import {Button, Checkbox, IconButton} from "@mui/material";
