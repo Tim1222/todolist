@@ -1,8 +1,8 @@
 {
-  "name": "Todolist_practice",
+  "name": "todolist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Tim1222.github.io/Todolist_practice",
+  "homepage": "https://Tim1222.github.io/todolist",
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
