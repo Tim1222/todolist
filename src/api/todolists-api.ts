@@ -12,35 +12,50 @@ const instance = axios.create({
     ...settings
 })
 
-export type TodolistsType = {
+export type TodolistType = {
     id: string
     title: string
     addedDate: string
     order: number
 }
-type _CreateTodolistResponseType = {
-    resultCode: number
-    title: string[]
-    data: {
-        item: TodolistsType
-    }
-}
-type _DeleteUpdateTodolistResponseType = {
-    resultCode: number
-    title: string[]
-    data: {}
-}
+// type _CreateTodolistResponseType = {
+//     resultCode: number
+//     title: string[]
+//     data: {
+//         item: TodolistsType
+//     }
+// }
+// type _DeleteUpdateTodolistResponseType = {
+//     resultCode: number
+//     title: string[]
+//     data: {}
+// }
 type ResponseType<D = {}> = {
     resultCode: number
     title: string[]
     data: D
 }
+
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft
+}
+export enum TaskPriotities {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later
+}
+
 export type TaskType = {
     description: string
     title: string
-    completed: boolean
-    status: number
-    priority: number
+    // completed: boolean
+    status: TaskStatuses
+    priority: TaskPriotities
     startDate: string
     deadline: string
     id: string
@@ -64,10 +79,10 @@ export type UpdateTaskType = {
 
 export const todolistsApi = {
     getTodolists() {
-        return instance.get<TodolistsType[]>('todo-lists')
+        return instance.get<TodolistType[]>('todo-lists')
     },
     createTodolists(title: string) {
-        return instance.post <ResponseType<{ item: TodolistsType }>>('todo-lists', {title: title})
+        return instance.post <ResponseType<{ item: TodolistType }>>('todo-lists', {title: title})
     },
     deleteTodolists(id: string) {
         return instance.delete<ResponseType>(`todo-lists/${id}`)
