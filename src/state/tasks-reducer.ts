@@ -1,7 +1,12 @@
 import {TasksStateType} from "../App";
 import {v1} from "uuid";
-import {AddTodolistActionType, RemoveTodolistActionType} from "./todolist-reducer";
-import {TaskPriotities, TaskStatuses} from "../api/todolists-api";
+import {
+    AddTodolistActionType,
+    RemoveTodolistActionType,
+    SetTodolistsActionType,
+    TodolistDomainType
+} from "./todolist-reducer";
+import {TaskPriotities, TaskStatuses, TaskType, TodolistType} from "../api/todolists-api";
 
 type ActionsTypes = RemoveTaskActionType
     | AddTaskActionType
@@ -9,6 +14,8 @@ type ActionsTypes = RemoveTaskActionType
     | ChangeTaskTitleActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
+    | SetTodolistsActionType
+    | SetTastsActionType
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -32,6 +39,12 @@ export type ChangeTaskTitleActionType = {
     title: string
     todolistID: string
 }
+export type SetTastsActionType = {
+    type: 'SET-TASKS'
+    tasks: Array<TaskType>
+    todolistId: string
+}
+
 
 const initialState: TasksStateType = {}
 
@@ -93,6 +106,20 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             delete stateCopy[action.id]
             return stateCopy
         }
+        case 'SET-TODOLISTS': {
+            const stateCopy = {...state}
+
+            action.todolists.forEach(tl => {
+                stateCopy[tl.id] = []
+            })
+
+            return stateCopy
+        }
+        case 'SET-TASKS': {
+            const stateCopy = {...state}
+            stateCopy[action.todolistId] = action.tasks
+            return stateCopy
+        }
         default:
             return state
     }
@@ -114,3 +141,7 @@ export const changeTaskTitleAC = (taskId: string,
                                   todolistID: string): ChangeTaskTitleActionType => {
     return {type: 'CHANGE-TASK-TITLE', title, todolistID, taskId}
 }
+export const setTasksAC = (tasks: Array<TaskType>, todoListId: string) => {
+    return {type: 'SET-TASKS', tasks, todoListId}
+}
+
