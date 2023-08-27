@@ -5,7 +5,7 @@ import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
-import {fetchTodolistsTC, FilterValuesType} from "./state/todolist-reducer";
+import {FilterValuesType} from "./state/todolist-reducer";
 //import {useDispatch} from "react-redux";
 import {fetchTasksTC} from "./state/tasks-reducer";
 import {useDispatch} from "react-redux";
